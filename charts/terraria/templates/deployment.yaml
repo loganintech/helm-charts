@@ -14,8 +14,6 @@ spec:
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
-      annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         app.kubernetes.io/name: {{ include "terraria.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
@@ -32,7 +30,7 @@ spec:
           volumeMounts:
           - name: terraria-worlds
             mountPath: /world
-          - name: configmap
+          - name: terraria-config
             mountPath: /config
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -66,27 +64,25 @@ spec:
             - name: http
               containerPort: 7878
               protocol: TCP
-#          livenessProbe:
-#            httpGet:
-#              path: /
-#              port: http
-#          readinessProbe:
-#            httpGet:
-#              path: /
-#              port: http
           volumeMounts:
           - name: terraria-worlds
             mountPath: /root/.local/share/Terraria/Worlds
+          - name: terraria-config
+            mountPath: /config
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      - name: configmap
-        configMap:
-          name: {{ template "terraria.fullname" . }}
       - name: terraria-worlds
-      {{- if .Values.persistence.enabled }}
+      {{- if .Values.persistence.worlds.enabled }}
         persistentVolumeClaim:
-          claimName: {{ template "terraria.fullname" . }}
+          claimName: {{ template "terraria.fullname" . }}-worlds
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: terraria-config
+      {{- if .Values.persistence.config.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "terraria.fullname" .  }}-config
       {{- else }}
         emptyDir: {}
       {{- end }}
