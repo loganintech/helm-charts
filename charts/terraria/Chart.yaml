@@ -2,8 +2,12 @@ apiVersion: v1
 appVersion: "latest"
 description: Terraria is a 2D sandbox game with gameplay that revolves around exploration, building, combat, and mining.
 name: terraria
-version: 0.4.2
+version: 0.4.3
 icon: https://gamepedia.cursecdn.com/terraria_gamepedia/c/c4/Terraria.png
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.5.2
 maintainers:
   - name: Logan Saso
     email: logansaso@gmail.com
