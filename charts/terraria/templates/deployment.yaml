@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "terraria.fullname" . }}
+  labels:
+{{ include "terraria.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "terraria.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app.kubernetes.io/name: {{ include "terraria.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      initContainers:
+        - name: init-myservice
+          image: busybox:1.28
+          command: ['sh']
+          args:
+            - -c
+            - |
+              cp /config/config.json /world/config.json
+              chmod 777 /world/config.json
+          volumeMounts:
+          - name: terraria-worlds
+            mountPath: /world
+          - name: configmap
+            mountPath: /config
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ template "terraria.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          tty: {{ .Values.terraria.tty }}
+          stdin: {{ .Values.terraria.stdin }}
+          args:
+            {{- if .Values.terraria.args }}
+            {{- toYaml .Values.terraria.args | nindent 12 }}
+            {{- else }}
+            - "-killinactivesocket"
+            - "-autocreate"
+            - {{ include "terraria.worldsize" . | quote }}
+            - "-world"
+            - "/root/.local/share/Terraria/Worlds/{{ .Values.terraria.worldsize }}-Normal-{{ include "terraria.worldsize" . }}.wld"
+            {{- end }}
+          ports:
+            - name: server
+              containerPort: 7777
+              protocol: TCP
+            - name: http
+              containerPort: 7878
+              protocol: TCP
+#          livenessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+#          readinessProbe:
+#            httpGet:
+#              path: /
+#              port: http
+          volumeMounts:
+          - name: terraria-worlds
+            mountPath: /root/.local/share/Terraria/Worlds
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+      - name: configmap
+        configMap:
+          name: {{ template "terraria.fullname" . }}
+      - name: terraria-worlds
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "terraria.fullname" . }}
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

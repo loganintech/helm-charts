@@ -12,6 +12,6 @@ entries:
         - email: logansaso@gmail.com
           name: Logan Saso
       name: terraria
-#      urls:
-#        - terraria/terraria-0.4.3.tgz
-      version: 0.4.3
+      urls:
+        - terraria/terraria-0.4.2.tgz
+      version: 0.4.2
