@@ -30,8 +30,6 @@ spec:
           volumeMounts:
           - name: terraria-worlds
             mountPath: /world
-          - name: terraria-config
-            mountPath: /config
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
