@@ -28,8 +28,6 @@ spec:
               if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.settings }}{{ toJson .Values.terraria.settings }}{{- end }}' > /config/config.json; fi;
               chmod 644 /config/config.json
           volumeMounts:
-          - name: terraria-worlds
-            mountPath: /world
           - name: terraria-config
             mountPath: /config
     {{- with .Values.imagePullSecrets }}
@@ -54,8 +52,6 @@ spec:
             - "-killinactivesocket"
             - "-autocreate"
             - {{ include "terraria.worldsize" . | quote }}
-            - "-world"
-            - "/root/.local/share/Terraria/Worlds/{{ .Values.terraria.worldsize }}-Normal-{{ include "terraria.worldsize" . }}.wld"
             {{- end }}
           ports:
             - name: server
