@@ -184,14 +184,13 @@ tolerations: []
 affinity: {}
 
 persistence:
-  enabled: false
-  ## If defined, storageClassName: <storageClass>
-  ## If set to "-", storageClassName: "", which disables dynamic provisioning
-  ## If undefined (the default) or set to null, no storageClassName spec is
-  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
-  ##   GKE, AWS & OpenStack)
-  ##
-  storageClassName: ""
-  accessModes:
-    - ReadWriteOnce
-  size: 1Gi
+  worlds:
+    enabled: false
+    mountPath: /root/.local/share/Terraria/Worlds
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  config:
+    enabled: false
+    mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 1Gi
