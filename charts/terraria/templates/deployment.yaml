@@ -25,11 +25,13 @@ spec:
           args:
             - -c
             - |
-              cp /config/config.json /world/config.json
-              chmod 777 /world/config.json
+              echo -e {{- if .Values.terraria.settings }}{{ toJson .Values.terraria.settings | indent 4 }}{{- end }} > /config/config.json
+              chmod 777 /config/config.json
           volumeMounts:
           - name: terraria-worlds
             mountPath: /world
+          - name: terraria-config
+            mountPath: /config
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
