@@ -25,7 +25,7 @@ spec:
           args:
             - -c
             - |
-              echo -e {{- if .Values.terraria.settings }}{{ toJson .Values.terraria.settings | indent 4 }}{{- end }} > /config/config.json
+              echo -e '{{- if .Values.terraria.settings }}{{ toJson .Values.terraria.settings | indent 4 }}{{- end }}' > /config/config.json
               chmod 777 /config/config.json
           volumeMounts:
           - name: terraria-worlds
