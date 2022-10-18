@@ -1,0 +1,29 @@
+{{ if .Values.rest.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "terraria.fullname" . }}-rest
+  labels:
+{{ include "terraria.labels" . | indent 4 }}
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ include "terraria.fullname" . }}
+{{- if .Values.rest.service.annotations }}
+{{ toYaml .Values.rest.service.annotations | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.rest.service.type }}
+  {{- if .Values.rest.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.rest.service.externalTrafficPolicy }}
+  {{- end }}
+  {{- if .Values.rest.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.rest.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - port: 7878
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: {{ include "terraria.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
