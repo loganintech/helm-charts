@@ -39,6 +39,9 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          env:
+            - name: WORLD_FILENAME
+              value: {{ include "terraria.worldfile" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -52,6 +55,8 @@ spec:
             - "-killinactivesocket"
             - "-autocreate"
             - {{ include "terraria.worldsize" . | quote }}
+            - "-worldname"
+            - {{ include "terraria.worldfile" . }}
             {{- end }}
           ports:
             - name: server
