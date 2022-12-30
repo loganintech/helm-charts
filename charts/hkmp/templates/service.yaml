@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "hkmp.fullname" . }}
+  labels:
+{{ include "hkmp.labels" . | indent 4 }}
+  annotations:
+    metallb.universe.tf/allow-shared-ip: {{ include "hkmp.fullname" . }}
+{{- if .Values.hkmp.service.annotations }}
+{{ toYaml .Values.hkmp.service.annotations | indent 4 }}
+{{- end }}
+spec:
+  type: {{ .Values.hkmp.service.type }}
+  {{- if .Values.hkmp.service.externalTrafficPolicy }}
+  externalTrafficPolicy: {{ .Values.hkmp.service.externalTrafficPolicy }}
+  {{- end }}
+  {{- if .Values.hkmp.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.hkmp.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.hkmp.service.port }}
+      targetPort: server
+      protocol: UDP
+      name: server
+  selector:
+    app.kubernetes.io/name: {{ include "hkmp.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
