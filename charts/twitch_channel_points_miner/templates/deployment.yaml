@@ -27,6 +27,10 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
+            {{- if .Values.twitch_channel_points_miner.env }}
+            {{- toYaml .Values.twitch_channel_points_miner.env | nindent 12 }}
+            {{- else }}
+            {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -39,19 +43,16 @@ spec:
             {{- else }}
             {{- end }}
           ports:
-            - name: server
-              containerPort: 2222
-              protocol: UDP
           volumeMounts:
-          - name: config
-            mountPath: /twitch_channel_points_miner
+          - name: cookies
+            mountPath: /usr/src/app/cookies
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-      - name: config
-      {{- if .Values.persistence.config.enabled }}
+      - name: cookies
+      {{- if .Values.persistence.cookies.enabled }}
         persistentVolumeClaim:
-          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-config
+          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-cookies
       {{- else }}
         emptyDir: {}
       {{- end }}
