@@ -38,17 +38,17 @@ entries:
       urls:
         - https://github.com/loganintech/helm-charts/releases/download/hkmp-0.0.1/hkmp-0.0.1.tgz
       version: 0.0.1
-  twitch-channel-points-miner:
+  twitch_channel_points_miner:
     - apiVersion: v1
       appVersion: latest
       created: "2023-04-12T06:12:06+00:00"
       description: Twitch channel points miner mines channel points on twitch
       digest: feb1638d33359fa200dd2661fdd285e67ebfcc83d07b028302ba043e894d300c
-      icon: https://raw.githubusercontent.com/Tkd-Alex/Twitch-Channel-Points-Miner-v2/master/assets/banner.png
+      icon: https://raw.githubusercontent.com/Tkd-Alex/twitch_channel_points_miner-v2/master/assets/banner.png
       maintainers:
         - email: logansaso@gmail.com
           name: Logan Saso
-      name: twitch-channel-points-miner
+      name: twitch_channel_points_miner
       urls:
-        - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.1/twitch-channel-points-miner-0.0.1.tgz
+        - https://github.com/loganintech/helm-charts/releases/download/twitch_channel_points_miner-0.0.1/twitch_channel_points_miner-0.0.1.tgz
       version: 0.0.1

@@ -1,4 +1,4 @@
-# Default values for twitch-channel-points-miner.
+# Default values for twitch_channel_points_miner.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -13,7 +13,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-twitch-channel-points-miner:
+twitch_channel_points_miner:
   env:
     - name: USERNAME
       value: YOUR_TWITCH_USERNAME
@@ -24,7 +24,8 @@ twitch-channel-points-miner:
     - name: DISCORD_WEBHOOK_URL
       value: https://discord.com/api/webhooks
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following

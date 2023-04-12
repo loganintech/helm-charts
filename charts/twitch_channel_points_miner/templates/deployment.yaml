@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "twitch-channel-points-miner.fullname" . }}
+  name: {{ include "twitch_channel_points_miner.fullname" . }}
   labels:
-{{ include "twitch-channel-points-miner.labels" . | indent 4 }}
+{{ include "twitch_channel_points_miner.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
+      app.kubernetes.io/name: {{ include "twitch_channel_points_miner.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
+        app.kubernetes.io/name: {{ include "twitch_channel_points_miner.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
     {{- with .Values.imagePullSecrets }}
@@ -31,11 +31,11 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          tty: {{ .Values.twitch-channel-points-miner.tty }}
-          stdin: {{ .Values.twitch-channel-points-miner.stdin }}
+          tty: {{ .Values.twitch_channel_points_miner.tty }}
+          stdin: {{ .Values.twitch_channel_points_miner.stdin }}
           args:
-            {{- if .Values.twitch-channel-points-miner.args }}
-            {{- toYaml .Values.twitch-channel-points-miner.args | nindent 12 }}
+            {{- if .Values.twitch_channel_points_miner.args }}
+            {{- toYaml .Values.twitch_channel_points_miner.args | nindent 12 }}
             {{- else }}
             {{- end }}
           ports:
@@ -44,14 +44,14 @@ spec:
               protocol: UDP
           volumeMounts:
           - name: config
-            mountPath: /twitch-channel-points-miner
+            mountPath: /twitch_channel_points_miner
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
       - name: config
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
-          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-config
+          claimName: {{ template "twitch_channel_points_miner.fullname" .  }}-config
       {{- else }}
         emptyDir: {}
       {{- end }}
