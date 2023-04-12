@@ -43,6 +43,9 @@ spec:
             {{- else }}
             {{- end }}
           ports:
+            - name: server
+              containerPort: 5000
+              protocol: UDP
           volumeMounts:
           - name: cookies
             mountPath: /usr/src/app/cookies

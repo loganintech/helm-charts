@@ -16,6 +16,10 @@ fullnameOverride: ""
 twitch_channel_points_miner:
   tty: false
   stdin: false
+  service:
+    type: NodePort
+    port: 5000
+    annotations: {}
   env:
     - name: USERNAME
       value: YOUR_TWITCH_USERNAME
