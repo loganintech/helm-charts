@@ -4,7 +4,8 @@ entries:
     - apiVersion: v1
       appVersion: latest
       created: "2022-10-18T04:39:53+00:00"
-      description: Terraria is a 2D sandbox game with gameplay that revolves around
+      description:
+        Terraria is a 2D sandbox game with gameplay that revolves around
         exploration, building, combat, and mining.
       digest: feb1638d33359fa200dd2661fdd285e67ebfcc83d07b028302ba043e894d300c
       icon: https://gamepedia.cursecdn.com/terraria_gamepedia/c/c4/Terraria.png
@@ -38,17 +39,17 @@ entries:
       urls:
         - https://github.com/loganintech/helm-charts/releases/download/hkmp-0.0.1/hkmp-0.0.1.tgz
       version: 0.0.1
-  twitch_channel_points_miner:
+  twitch-channel-points-miner:
     - apiVersion: v1
       appVersion: latest
       created: "2023-04-12T06:12:06+00:00"
       description: Twitch channel points miner mines channel points on twitch
       digest: feb1638d33359fa200dd2661fdd285e67ebfcc83d07b028302ba043e894d300c
-      icon: https://raw.githubusercontent.com/Tkd-Alex/twitch_channel_points_miner-v2/master/assets/banner.png
+      icon: https://raw.githubusercontent.com/Tkd-Alex/twitch-channel-points-miner-v2/master/assets/banner.png
       maintainers:
         - email: logansaso@gmail.com
           name: Logan Saso
-      name: twitch_channel_points_miner
+      name: twitch-channel-points-miner
       urls:
         - https://github.com/loganintech/helm-charts/releases/download/twitch_channel_points_miner-0.0.1/twitch_channel_points_miner-0.0.1.tgz
       version: 0.0.1

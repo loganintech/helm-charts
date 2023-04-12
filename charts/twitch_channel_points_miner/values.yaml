@@ -13,7 +13,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-twitch_channel_points_miner:
+twitch-channel-points-miner:
   env:
     - name: USERNAME
       value: YOUR_TWITCH_USERNAME

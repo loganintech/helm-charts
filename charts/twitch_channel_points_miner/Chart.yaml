@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "latest"
-description: twitch_channel_points_miner - Automatically redeem channel points
-name: twitch_channel_points_miner
+description: twitch-channel-points-miner - Automatically redeem channel points
+name: twitch-channel-points-miner
 version: 0.0.1
 icon: https://raw.githubusercontent.com/Tkd-Alex/twitch_channel_points_miner-v2/master/assets/banner.png
 dependencies:
