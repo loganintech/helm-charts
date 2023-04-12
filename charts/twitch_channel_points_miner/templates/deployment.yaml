@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "twitch_channel_points_miner.fullname" . }}
+  name: {{ include "twitch-channel-points-miner.fullname" . }}
   labels:
-{{ include "twitch_channel_points_miner.labels" . | indent 4 }}
+{{ include "twitch-channel-points-miner.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "twitch_channel_points_miner.name" . }}
+      app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: {{ include "twitch_channel_points_miner.name" . }}
+        app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
     {{- with .Values.imagePullSecrets }}
@@ -51,7 +51,7 @@ spec:
       - name: config
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
-          claimName: {{ template "twitch_channel_points_miner.fullname" .  }}-config
+          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-config
       {{- else }}
         emptyDir: {}
       {{- end }}
