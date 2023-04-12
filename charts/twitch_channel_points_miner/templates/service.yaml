@@ -23,5 +23,5 @@ spec:
       protocol: UDP
       name: server
   selector:
-    app.kubernetes.io/name: {{ include "hkmp.name" . }}
+    app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
