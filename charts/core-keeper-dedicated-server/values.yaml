@@ -1,0 +1,58 @@
+# Default values for core-keeper-dedicated-server.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: arguser/core-keeper-dedicated
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+corekeeper:
+  tty: false
+  stdin: false
+  service:
+    type: NodePort
+    port:
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  data:
+    enabled: false
+    mountPath: /home/steam/core-keeper-data
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  server:
+    enabled: false
+    mountPath: /home/steam/core-keeper-dedicated
+    accessMode: ReadWriteOnce
+    size: 1Gi

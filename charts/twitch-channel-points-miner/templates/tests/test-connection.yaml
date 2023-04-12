@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "twitch-channel-points-miner.fullname" . }}-test-connection"
+  labels:
+{{ include "twitch-channel-points-miner.labels" . | indent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args:  ['{{ include "twitch-channel-points-miner.fullname" . }}:{{ .Values.twitch-channel-points-miner.service.port }}']
+  restartPolicy: Never

@@ -1,0 +1,50 @@
+# Default values for twitch-channel-points-miner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: loganintech/twitch-channel-points-miner
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+twitch-channel-points-miner:
+  env:
+    - name: USERNAME
+      value: YOUR_TWITCH_USERNAME
+    - name: PASSWORD
+      value: YOUR_TWITCH_PASSWORD
+    - name: TWITCH_CHANNELS
+      value: RocketLeague RLEsports
+    - name: DISCORD_WEBHOOK_URL
+      value: https://discord.com/api/webhooks
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  app:
+    enabled: true
+    mountPath: /usr/src/app
+    accessMode: ReadWriteOnce
+    size: 10Gi

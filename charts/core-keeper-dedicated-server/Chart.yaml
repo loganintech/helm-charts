@@ -1,0 +1,13 @@
+apiVersion: v1
+appVersion: "latest"
+description: Core Keeper Dedicated Server
+name: core-keeper-dedicated-server
+version: 0.0.1
+icon: https://user-images.githubusercontent.com/136487/168213246-7f561105-136e-47fa-abd9-fac1c97ca48d.png
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.5.2
+maintainers:
+  - name: Logan Saso
+    email: logansaso@gmail.com
