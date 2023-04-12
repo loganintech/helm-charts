@@ -41,7 +41,7 @@ entries:
   twitch-channel-points-miner:
     - apiVersion: v1
       appVersion: latest
-      created: "2023-04-12T06:12:06+0000"
+      created: "2023-04-12T06:12:06+00:00"
       description: Twitch channel points miner mines channel points on twitch
       digest: feb1638d33359fa200dd2661fdd285e67ebfcc83d07b028302ba043e894d300c
       icon: https://raw.githubusercontent.com/Tkd-Alex/Twitch-Channel-Points-Miner-v2/master/assets/banner.png
