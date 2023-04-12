@@ -51,6 +51,6 @@ entries:
           name: Logan Saso
       name: twitch-channel-points-miner
       urls:
-        - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.1/twitch-channel-points-miner-0.0.1.tgz
         - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.2/twitch-channel-points-miner-0.0.2.tgz
+        - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.1/twitch-channel-points-miner-0.0.1.tgz
       version: 0.0.2
