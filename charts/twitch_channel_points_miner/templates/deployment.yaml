@@ -49,10 +49,8 @@ spec:
           volumeMounts:
           - name: cookies
             mountPath: /usr/src/app/cookies
-          volumeMounts:
           - name: analytics
             mountPath: /usr/src/app/analytics
-          volumeMounts:
           - name: logs
             mountPath: /usr/src/app/logs
           resources:
