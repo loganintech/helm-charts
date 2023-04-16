@@ -55,3 +55,13 @@ persistence:
     mountPath: /usr/src/app/cookies
     accessMode: ReadWriteOnce
     size: 1Gi
+  analytics:
+    enabled: true
+    mountPath: /usr/src/app/analytics
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  logs:
+    enabled: true
+    mountPath: /usr/src/app/logs
+    accessMode: ReadWriteOnce
+    size: 1Gi

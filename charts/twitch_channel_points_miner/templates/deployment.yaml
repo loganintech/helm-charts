@@ -45,10 +45,16 @@ spec:
           ports:
             - name: server
               containerPort: 5000
-              protocol: UDP
+              protocol: TCP
           volumeMounts:
           - name: cookies
             mountPath: /usr/src/app/cookies
+          volumeMounts:
+          - name: analytics
+            mountPath: /usr/src/app/analytics
+          volumeMounts:
+          - name: logs
+            mountPath: /usr/src/app/logs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -56,6 +62,20 @@ spec:
       {{- if .Values.persistence.cookies.enabled }}
         persistentVolumeClaim:
           claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-cookies
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: analytics
+      {{- if .Values.persistence.analytics.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-analytics
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: logs
+      {{- if .Values.persistence.logs.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "twitch-channel-points-miner.fullname" .  }}-logs
       {{- else }}
         emptyDir: {}
       {{- end }}

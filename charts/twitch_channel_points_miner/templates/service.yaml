@@ -20,7 +20,7 @@ spec:
   ports:
     - port: {{ .Values.twitch_channel_points_miner.service.port }}
       targetPort: server
-      protocol: UDP
+      protocol: TCP
       name: server
   selector:
     app.kubernetes.io/name: {{ include "twitch-channel-points-miner.name" . }}
