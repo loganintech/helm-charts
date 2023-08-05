@@ -57,7 +57,7 @@ terraria:
     DisableBuild: false
     SuperAdminChatRGB: [255, 0, 0]
     SuperAdminChatPrefix: "(Admin) "
-    SuperAdminChatSuffix: ''
+    SuperAdminChatSuffix: ""
     BackupInterval: 0
     BackupKeepFor: 60
     RememberLeavePos: false
@@ -68,13 +68,13 @@ terraria:
     AutoSave: true
     AnnounceSave: true
     MaximumLoginAttempts: 3
-    ServerName: ''
+    ServerName: ""
     UseServerName: false
     StorageType: sqlite
     MySqlHost: localhost:3306
-    MySqlDbName: ''
-    MySqlUsername: ''
-    MySqlPassword: ''
+    MySqlDbName: ""
+    MySqlUsername: ""
+    MySqlPassword: ""
     MediumcoreBanReason: Death results in a ban
     MediumcoreKickReason: Death results in a kick
     EnableIPBans: true
@@ -112,7 +112,7 @@ terraria:
     RequireLogin: false
     DisableInvisPvP: false
     MaxRangeForDisabled: 10
-    ServerPassword: ''
+    ServerPassword: ""
     RegionProtectChests: false
     RegionProtectGemLocks: true
     DisableLoginBeforeJoin: false
@@ -169,7 +169,8 @@ terraria:
     RESTLimitOnlyFailedLoginRequests: true
     ShowBackupAutosaveMessages: true
 
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -196,5 +197,10 @@ persistence:
   config:
     enabled: false
     mountPath: /config
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  plugins:
+    enabled: false
+    mountPath: /tshock/ServerPlugins
     accessMode: ReadWriteOnce
     size: 1Gi

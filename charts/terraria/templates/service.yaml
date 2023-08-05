@@ -18,10 +18,25 @@ spec:
   loadBalancerIP: {{ .Values.terraria.service.loadBalancerIP }}
   {{- end }}
   ports:
-    - port: {{ .Values.terraria.service.port }}
-      targetPort: server
-      protocol: TCP
-      name: server
+  - name: server
+    port: {{ .Values.terraria.service.port }}
+    targetPort: server
+    protocol: TCP
+  {{- range .Values.terraria.extraPorts }}
+  {{- if and .service.enabled .service.embedded }}
+  - name: {{ .name }}
+    port: {{ .service.port }}
+    targetPort: {{ .name }}
+    {{- if .service.nodePort }}
+    nodePort: {{ .service.nodePort }}
+    {{- end }}
+    {{- if .protocol }}
+    protocol: {{ .protocol }}
+    {{- else }}
+    protocol: TCP
+    {{- end }}
+  {{- end }}
+  {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "terraria.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

@@ -42,6 +42,8 @@ spec:
           env:
             - name: WORLD_FILENAME
               value: {{ include "terraria.worldfile" . }}
+            - name: CONFIGPATH
+              value: /config
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -65,11 +67,24 @@ spec:
             - name: http
               containerPort: 7878
               protocol: TCP
+            {{- range .Values.terraria.extraPorts }}
+            {{- if .service.enabled }}
+            - name: {{ .name }}
+              containerPort: {{ .containerPort }}
+              {{- if .protocol }}
+              protocol: {{ .protocol }}
+              {{- else }}
+              protocol: TCP
+              {{- end }}
+            {{- end }}
+            {{- end }}
           volumeMounts:
           - name: terraria-worlds
             mountPath: /root/.local/share/Terraria/Worlds
           - name: terraria-config
             mountPath: /config
+          - name: tshock-plugins
+            mountPath: /tshock/ServerPlugins
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -84,6 +99,13 @@ spec:
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
           claimName: {{ template "terraria.fullname" .  }}-config
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: tshock-plugins
+      {{- if .Values.persistence.plugins.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "terraria.fullname" .  }}-plugins
       {{- else }}
         emptyDir: {}
       {{- end }}
