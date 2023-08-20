@@ -14,7 +14,7 @@ entries:
           name: Logan Saso
       name: terraria
       urls:
-        - https://github.com/loganintech/helm-charts/releases/download/terraria-0.4.12/terraria-0.4.13.tgz
+        - https://github.com/loganintech/helm-charts/releases/download/terraria-0.4.13/terraria-0.4.13.tgz
         - https://github.com/loganintech/helm-charts/releases/download/terraria-0.4.12/terraria-0.4.12.tgz
         - https://github.com/loganintech/helm-charts/releases/download/terraria-0.4.11/terraria-0.4.11.tgz
         - https://github.com/loganintech/helm-charts/releases/download/terraria-0.4.10/terraria-0.4.10.tgz
