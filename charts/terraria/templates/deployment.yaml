@@ -40,6 +40,8 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
+            - name: WORLD_FILENAME
+              value: {{ include "terraria.worldfile" . }}
             - name: CONFIGPATH
               value: /config
           securityContext:
