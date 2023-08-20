@@ -57,8 +57,6 @@ spec:
             - "-killinactivesocket"
             - "-autocreate"
             - {{ include "terraria.worldsize" . | quote }}
-            - "-world"
-            - {{ include "terraria.worldfile" . }}
             {{- end }}
           ports:
             - name: server
