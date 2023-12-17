@@ -51,7 +51,6 @@ spec:
             {{- if .Values.terraria.args }}
             {{- toYaml .Values.terraria.args | nindent 12 }}
             {{- else }}
-            - "-killinactivesocket"
             - "-autocreate"
             - {{ include "terraria.worldsize" . | quote }}
             {{- end }}
