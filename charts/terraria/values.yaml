@@ -29,8 +29,10 @@ rest:
 
 terraria:
   env:
-    CONFIGPATH: /config
-    # WORLD_FILENAME: world.wld
+    - name: CONFIGPATH
+      value: /config
+#    - name: WORLD_FILENAME
+#      valueL: world.wld
 
   tty: false
   stdin: false
