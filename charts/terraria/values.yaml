@@ -28,6 +28,10 @@ rest:
     annotations: {}
 
 terraria:
+  env:
+    CONFIGPATH: /config
+    # WORLD_FILENAME: world.wld
+
   tty: false
   stdin: false
   service:

@@ -40,10 +40,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
-            - name: WORLD_FILENAME
-              value: {{ include "terraria.worldfile" . }}
-            - name: CONFIGPATH
-              value: /config
+            {{- toYaml .Values.env | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
