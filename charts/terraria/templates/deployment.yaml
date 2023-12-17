@@ -40,7 +40,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
-            {{- toYaml .Values.env | nindent 12 }}
+            {{- toYaml .Values.terraria.env | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
