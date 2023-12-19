@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "latest"
 description: hkmp - Hollow Knight Multi Player
 name: hkmp
-version: 0.0.3
+version: 0.0.4
 icon: https://gamepedia.cursecdn.com/hkmp_gamepedia/c/c4/hkmp.png
 dependencies:
   - name: common

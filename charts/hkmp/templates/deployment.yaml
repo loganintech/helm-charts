@@ -43,7 +43,7 @@ spec:
               protocol: UDP
           volumeMounts:
           - name: config
-            mountPath: /hkmp
+            mountPath: /HKMP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
