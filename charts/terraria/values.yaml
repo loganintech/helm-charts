@@ -25,6 +25,7 @@ rest:
   service:
     type: NodePort
     port: 7777
+    # nodePort:
     annotations: {}
 
 terraria:
@@ -39,6 +40,7 @@ terraria:
   service:
     type: NodePort
     port: 7777
+    # nodePort:
     annotations: {}
   args:
 

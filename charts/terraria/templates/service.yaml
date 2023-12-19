@@ -14,14 +14,14 @@ spec:
   {{- if .Values.terraria.service.externalTrafficPolicy }}
   externalTrafficPolicy: {{ .Values.terraria.service.externalTrafficPolicy }}
   {{- end }}
-  {{- if .Values.terraria.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.terraria.service.loadBalancerIP }}
-  {{- end }}
   ports:
   - name: server
     port: {{ .Values.terraria.service.port }}
     targetPort: server
     protocol: TCP
+    {{- if .Values.terraria.service.nodePort }}
+    nodePort: {{ .Values.terraria.service.nodePort }}
+    {{- end }}
   {{- range .Values.terraria.extraPorts }}
   {{- if and .service.enabled .service.embedded }}
   - name: {{ .name }}

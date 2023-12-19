@@ -23,6 +23,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+      {{- if .Values.rest.service.nodePort }}
+      nodePort: {{ .Values.rest.service.nodePort }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "terraria.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
