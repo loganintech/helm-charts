@@ -27,6 +27,7 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
+            {{- toYaml .Values.hkmp.env | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -44,7 +45,7 @@ spec:
               protocol: UDP
           volumeMounts:
           - name: config
-            mountPath: /HKMP
+            mountPath: /hkmp
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

@@ -14,14 +14,14 @@ spec:
   {{- if .Values.hkmp.service.externalTrafficPolicy }}
   externalTrafficPolicy: {{ .Values.hkmp.service.externalTrafficPolicy }}
   {{- end }}
-  {{- if .Values.hkmp.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.hkmp.service.loadBalancerIP }}
-  {{- end }}
   ports:
     - port: {{ .Values.hkmp.service.port }}
       targetPort: server
       protocol: UDP
       name: server
+      {{- if .Values.hkmp.service.nodePort }}
+      nodePort: {{ .Values.hkmp.service.nodePort }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "hkmp.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
