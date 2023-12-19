@@ -46,9 +46,10 @@ entries:
           name: Logan Saso
       name: hkmp
       urls:
+        - https://github.com/loganintech/helm-charts/releases/download/hkmp-0.0.3/hkmp-0.0.3.tgz
         - https://github.com/loganintech/helm-charts/releases/download/hkmp-0.0.2/hkmp-0.0.2.tgz
         - https://github.com/loganintech/helm-charts/releases/download/hkmp-0.0.1/hkmp-0.0.1.tgz
-      version: 0.0.2
+      version: 0.0.3
   twitch-channel-points-miner:
     - apiVersion: v1
       appVersion: latest
