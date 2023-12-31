@@ -19,7 +19,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
-        - name: init-myservice
+        - name: init-configs
           image: busybox:1.28
           command: ['sh', '-c' ]
           args:
@@ -28,18 +28,18 @@ spec:
               chmod 644 /config/config.json
               if [ ! -f /config/config.txt ]; then
                 echo "" > /config/config.txt
-
-                echo "autocreate={{ include "terraria.worldsize" . }}" >> /config/config.txt
-                echo "difficulty={{ include "terraria.difficulty" . }}" >> /config/config.txt
-                echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/config.txt
-                echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/config.txt
-                echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/config.txt
-                echo "language={{ .Values.terraria.serverSettings.language }}" >> /config/config.txt
-                echo "npcstream={{ .Values.terraria.serverSettings.npcstream }}" >> /config/config.txt
-                echo "priority={{ .Values.terraria.serverSettings.priority }}" >> /config/config.txt
-
+                echo "autocreate={{ include "terraria.worldsize" . }}" >> /config/config.txt;
+                echo "difficulty={{ include "terraria.difficulty" . }}" >> /config/config.txt;
+                echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/config.txt;
+                echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/config.txt;
+                echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/config.txt;
+                echo "language={{ .Values.terraria.serverSettings.language }}" >> /config/config.txt;
+                echo "npcstream={{ .Values.terraria.serverSettings.npcstream }}" >> /config/config.txt;
+                echo "priority={{ .Values.terraria.serverSettings.priority }}" >> /config/config.txt;
+                {{- if .Values.terraria.extraServerSettings }}
                 {{- range $key, $value := .Values.terraria.extraServerSettings }}
                 echo "{{ $key }}={{ $value }}" >> /config/config.txt
+                {{- end }}
                 {{- end }}
               fi
               chmod 644 /config/config.txt
@@ -51,14 +51,16 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       serviceAccountName: {{ template "terraria.serviceAccountName" . }}
+      {{- if .Values.podSecurityContext }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           env:
-            - name: CONFIGPATH
+            - name: CONFIG_PATH
               value: /config
-            {{ if .Values.terraria.env }}
+            {{- if .Values.terraria.env }}
             {{- toYaml .Values.terraria.env | nindent 12 }}
             {{- end }}
           securityContext:
