@@ -35,11 +35,11 @@ Create chart name and version as used by the chart label.
      Return the number representing the world size string
 */}}
 {{- define "terraria.worldsize" -}}
-{{- if contains "large" .Values.terraria.serverSettings.autocreate }}
+{{- if contains "large" .Values.terraria.serverSettings.worldsize }}
 {{- printf "3" }}
-{{- else if contains "medium" .Values.terraria.serverSettings.autocreate }}
+{{- else if contains "medium" .Values.terraria.serverSettings.worldsize }}
 {{- printf "2" }}
-{{- else if contains "small" .Values.terraria.serverSettings.autocreate }}
+{{- else if contains "small" .Values.terraria.serverSettings.worldsize }}
 {{- printf "1" }}
 {{- end -}}
 {{- end -}}

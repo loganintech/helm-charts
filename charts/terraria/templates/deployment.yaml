@@ -59,7 +59,9 @@ spec:
           env:
             - name: CONFIGPATH
               value: /config
+            {{ if .Values.terraria.env }}
             {{- toYaml .Values.terraria.env | nindent 12 }}
+            {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -69,7 +71,6 @@ spec:
           args:
             {{- if .Values.terraria.args }}
             {{- toYaml .Values.terraria.args | nindent 12 }}
-            {{- else }}
             {{- end }}
           ports:
             - name: server
