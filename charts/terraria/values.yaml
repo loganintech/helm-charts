@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ryshe/terraria
+  repository: loganintech/terraria
   tag: latest
   pullPolicy: Always
 

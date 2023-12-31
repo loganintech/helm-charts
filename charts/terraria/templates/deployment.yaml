@@ -19,30 +19,34 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       initContainers:
+        {{- if .Values.terraria.tshockSettings }}
         - name: init-tshockconfig
-          image: busybox:1.28
+          image: busybox:1.36
           command: ['sh']
           args:
             - -c
             - |
-              if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.tshockSettings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
+              if [ ! -f /config/config.json ]; then
+                echo '{{ toJson .Values.terraria.tshockSettings }}' > /config/config.json
+              fi
               chmod 644 /config/config.json
           volumeMounts:
           - name: terraria-config
             mountPath: /config
+        {{- end }}
         - name: init-serverconfig
-          image: busybox:1.28
+          image: busybox:1.36
           command: ['sh']
           args:
             - -c
             - |
               if [ ! -f /config/config.txt ]; then
                 echo '' > /config/config.txt
-              {{- if .Values.terraria.extraServerSettings }}
-              {{- range $key, $value := .Values.terraria.extraServerSettings }}
+                {{- if .Values.terraria.extraServerSettings }}
+                {{- range $key, $value := .Values.terraria.extraServerSettings }}
                 echo '{{ $key }}={{ $value }}' >> /config/config.txt
-              {{- end }}
-              {{- end }}
+                {{- end }}
+                {{- end }}
                 echo 'autocreate={{ include "terraria.worldsize" . }}' >> /config/config.txt
                 echo 'difficulty={{ include "terraria.difficulty" . }}' >> /config/config.txt
                 echo 'worldname={{ .Values.terraria.serverSettings.worldname }}' >> /config/config.txt
