@@ -35,11 +35,11 @@ Create chart name and version as used by the chart label.
      Return the number representing the world size string
 */}}
 {{- define "terraria.worldsize" -}}
-{{- if contains "large" .Values.terraria.world.worldsize }}
+{{- if contains "large" .Values.terraria.serverSettings.autocreate }}
 {{- printf "3" }}
-{{- else if contains "medium" .Values.terraria.world.worldsize }}
+{{- else if contains "medium" .Values.terraria.serverSettings.autocreate }}
 {{- printf "2" }}
-{{- else if contains "small" .Values.terraria.world.worldsize }}
+{{- else if contains "small" .Values.terraria.serverSettings.autocreate }}
 {{- printf "1" }}
 {{- end -}}
 {{- end -}}
@@ -48,13 +48,13 @@ Create chart name and version as used by the chart label.
      Return the number representing the world difficulty string
 */}}
 {{- define "terraria.difficulty" -}}
-{{- if contains "normal" .Values.terraria.world.difficulty }}
+{{- if contains "normal" .Values.terraria.serverSettings.difficulty }}
 {{- printf "0" }}
-{{- else if contains "expert" .Values.terraria.world.difficulty }}
+{{- else if contains "expert" .Values.terraria.serverSettings.difficulty }}
 {{- printf "1" }}
-{{- else if contains "master" .Values.terraria.world.difficulty }}
+{{- else if contains "master" .Values.terraria.serverSettings.difficulty }}
 {{- printf "2" }}
-{{- else if contains "journey" .Values.terraria.world.difficulty }}
+{{- else if contains "journey" .Values.terraria.serverSettings.difficulty }}
 {{- printf "3" }}
 {{- end -}}
 {{- end -}}

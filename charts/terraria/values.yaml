@@ -30,8 +30,6 @@ rest:
 
 terraria:
   env:
-    - name: CONFIGPATH
-      value: /config
 #    - name: WORLD_FILENAME
 #      valueL: world.wld
 
@@ -44,13 +42,22 @@ terraria:
     annotations: {}
   args:
 
-  world:
-    # small, medium, or large
-    worldsize: large
-    # normal, expert, master, or journey
-    difficulty: normal
-    maxPlayers: 8
-  settings:
+  serverSettings:
+    # Server settings are sourced from vanilla server settings https://terraria.fandom.com/wiki/Server#Command_line_parameters
+    # The ones defined below should be set, but you can add the rest under extraServerSettings
+    autocreate: large                          # 1: small, 2: medium, 3: large
+    difficulty: master                         # 0: normal, 1: expert, 2: master, 3: journey
+    worldname: "large-expert-world.wld"        # Name of the world
+    maxplayers: 8                              # Max number of players
+    banlist: "banlist.txt"                     # Location of the banlist file
+    secure: 1                                  # Cheat protection (1 for enabled)
+    language: "en-US"                          # Server language
+    npcstream: 60                              # Reduces enemy skipping
+    priority: 1                                # System priority (0: Realtime, 1: High, ...)
+  extraServerSettings:
+
+
+  tshockSettings:
     InvasionMultiplier: 1
     DefaultMaximumSpawns: 5
     DefaultSpawnRate: 600
@@ -210,5 +217,10 @@ persistence:
   plugins:
     enabled: false
     mountPath: /tshock/ServerPlugins
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  logs:
+    enabled: false
+    mountPath: /tshock/logs
     accessMode: ReadWriteOnce
     size: 1Gi

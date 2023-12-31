@@ -25,8 +25,25 @@ spec:
           args:
             - -c
             - |
-              if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.settings }}{{ toJson .Values.terraria.settings }}{{- end }}' > /config/config.json; fi;
+              if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.settings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
               chmod 644 /config/config.json
+              if [ ! -f /config/config.txt ]; then
+                echo "" > /config/config.txt;
+
+                echo "autocreate={{ include "terraria.worldsize" }}" >> /config/config.txt;
+                echo "difficulty={{ include "terraria.difficulty" }}" >> /config/config.txt;
+                echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/config.txt;
+                echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/config.txt;
+                echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/config.txt;
+                echo "language={{ .Values.terraria.serverSettings.language }}" >> /config/config.txt;
+                echo "npcstream={{ .Values.terraria.serverSettings.npcstream }}" >> /config/config.txt;
+                echo "priority={{ .Values.terraria.serverSettings.priority }}" >> /config/config.txt;
+
+                {{- range $key, $value := .Values.terraria.extraServerSettings }}
+                echo "{{ $key }}={{ $value }}" >> /config/config.txt;
+                {{- end }}
+              fi;
+              chmod 644 /config/config.txt
           volumeMounts:
           - name: terraria-config
             mountPath: /config
@@ -40,6 +57,8 @@ spec:
       containers:
         - name: {{ .Chart.Name }}
           env:
+            - name: CONFIGPATH
+              value: /config
             {{- toYaml .Values.terraria.env | nindent 12 }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -51,8 +70,6 @@ spec:
             {{- if .Values.terraria.args }}
             {{- toYaml .Values.terraria.args | nindent 12 }}
             {{- else }}
-            - "-autocreate"
-            - {{ include "terraria.worldsize" . | quote }}
             {{- end }}
           ports:
             - name: server
@@ -79,6 +96,8 @@ spec:
             mountPath: /config
           - name: tshock-plugins
             mountPath: /tshock/ServerPlugins
+          - name: tshock-logs
+            mountPath: /tshock/logs
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -100,6 +119,13 @@ spec:
       {{- if .Values.persistence.plugins.enabled }}
         persistentVolumeClaim:
           claimName: {{ template "terraria.fullname" .  }}-plugins
+      {{- else }}
+        emptyDir: {}
+      {{- end }}
+      - name: tshock-logs
+      {{- if .Values.persistence.logs.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ template "terraria.fullname" .  }}-logs
       {{- else }}
         emptyDir: {}
       {{- end }}
