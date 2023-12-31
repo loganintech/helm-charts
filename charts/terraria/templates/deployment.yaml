@@ -30,8 +30,8 @@ spec:
               if [ ! -f /config/config.txt ]; then
                 echo "" > /config/config.txt;
 
-                echo "autocreate={{ include "terraria.worldsize" }}" >> /config/config.txt;
-                echo "difficulty={{ include "terraria.difficulty" }}" >> /config/config.txt;
+                echo "autocreate={{ include "terraria.worldsize" . }}" >> /config/config.txt;
+                echo "difficulty={{ include "terraria.difficulty" . }}" >> /config/config.txt;
                 echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/config.txt;
                 echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/config.txt;
                 echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/config.txt;
