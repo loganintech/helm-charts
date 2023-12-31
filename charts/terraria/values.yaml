@@ -43,7 +43,7 @@ terraria:
     # The ones defined below should be set, but you can add the rest under extraServerSettings
     worldsize: large                           # 1: small, 2: medium, 3: large
     difficulty: master                         # 0: normal, 1: expert, 2: master, 3: journey
-    worldname: "large-master-world.wld"        # Name of the world
+    worldname: "large-master-world"            # Name of the world to create if it doesn't exist already
     maxplayers: 8                              # Max number of players
     banlist: "banlist.txt"                     # Location of the banlist file
     secure: 1                                  # Cheat protection (1 for enabled)

@@ -49,6 +49,7 @@ spec:
                 {{- end }}
                 echo "autocreate={{ include "terraria.worldsize" . }}" >> /config/serverconfig.txt
                 echo "difficulty={{ include "terraria.difficulty" . }}" >> /config/serverconfig.txt
+                echo "world=/root/.local/share/Terraria/Worlds/{{ .Values.terraria.serverSettings.worldname }}.wld" >> /config/serverconfig.txt
                 echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/serverconfig.txt
                 echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/serverconfig.txt
                 echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/serverconfig.txt
