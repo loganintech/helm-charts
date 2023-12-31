@@ -21,8 +21,9 @@ spec:
       initContainers:
         - name: init-tshockconfig
           image: busybox:1.28
-          command: ['sh', '-c' ]
+          command: ['sh']
           args:
+            - -c
             - |
               if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.tshockSettings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
               chmod 644 /config/config.json
@@ -31,8 +32,9 @@ spec:
             mountPath: /config
         - name: init-serverconfig
           image: busybox:1.28
-          command: ['sh', '-c' ]
+          command: ['sh']
           args:
+            - -c
             - |
               if [ ! -f /config/config.txt ]; then
                 echo '' > /config/config.txt
