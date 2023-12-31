@@ -26,22 +26,7 @@ spec:
             - |
               if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.tshockSettings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
               chmod 644 /config/config.json
-              if [ ! -f /config/config.txt ]; then
-                echo "" > /config/config.txt
-                echo "autocreate={{ include "terraria.worldsize" . }}" >> /config/config.txt;
-                echo "difficulty={{ include "terraria.difficulty" . }}" >> /config/config.txt;
-                echo "worldname={{ .Values.terraria.serverSettings.worldname }}" >> /config/config.txt;
-                echo "maxplayers={{ .Values.terraria.serverSettings.maxplayers }}" >> /config/config.txt;
-                echo "secure={{ .Values.terraria.serverSettings.secure }}" >> /config/config.txt;
-                echo "language={{ .Values.terraria.serverSettings.language }}" >> /config/config.txt;
-                echo "npcstream={{ .Values.terraria.serverSettings.npcstream }}" >> /config/config.txt;
-                echo "priority={{ .Values.terraria.serverSettings.priority }}" >> /config/config.txt;
-                {{- if .Values.terraria.extraServerSettings }}
-                {{- range $key, $value := .Values.terraria.extraServerSettings }}
-                echo "{{ $key }}={{ $value }}" >> /config/config.txt
-                {{- end }}
-                {{- end }}
-              fi
+              if [ ! -f /config/config.txt ]; then echo '' > /config/config.txt && {{- if .Values.terraria.extraServerSettings }}{{- range $key, $value := .Values.terraria.extraServerSettings }}echo '{{ $key }}={{ $value }}' >> /config/config.txt &&{{- end }}{{- end }}echo 'autocreate={{ include "terraria.worldsize" . }}' >> /config/config.txt && echo 'difficulty={{ include "terraria.difficulty" . }}' >> /config/config.txt && echo 'worldname={{ .Values.terraria.serverSettings.worldname }}' >> /config/config.txt && echo 'maxplayers={{ .Values.terraria.serverSettings.maxplayers }}' >> /config/config.txt && echo 'secure={{ .Values.terraria.serverSettings.secure }}' >> /config/config.txt && echo 'language={{ .Values.terraria.serverSettings.language }}' >> /config/config.txt && echo 'npcstream={{ .Values.terraria.serverSettings.npcstream }}' >> /config/config.txt && echo 'priority={{ .Values.terraria.serverSettings.priority }}' >> /config/config.txt; fi;
               chmod 644 /config/config.txt
           volumeMounts:
           - name: terraria-config
