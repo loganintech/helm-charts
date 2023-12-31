@@ -54,8 +54,8 @@ terraria:
     language: "en-US"                          # Server language
     npcstream: 60                              # Reduces enemy skipping
     priority: 1                                # System priority (0: Realtime, 1: High, ...)
-  extraServerSettings:
 
+  extraServerSettings: {}
 
   tshockSettings:
     InvasionMultiplier: 1

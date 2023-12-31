@@ -25,7 +25,7 @@ spec:
           args:
             - -c
             - |
-              if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.settings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
+              if [ ! -f /config/config.json ]; then echo -e '{{- if .Values.terraria.tshockSettings }}{{ toJson .Values.terraria.tshockSettings }}{{- end }}' > /config/config.json; fi;
               chmod 644 /config/config.json
               if [ ! -f /config/config.txt ]; then
                 echo "" > /config/config.txt;
