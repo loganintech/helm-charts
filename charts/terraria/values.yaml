@@ -41,7 +41,7 @@ terraria:
   serverSettings:
     # Server settings are sourced from vanilla server settings https://terraria.fandom.com/wiki/Server#Command_line_parameters
     # The ones defined below should be set, but you can add the rest under extraServerSettings
-    worldsize: large                          # 1: small, 2: medium, 3: large
+    worldsize: large                           # 1: small, 2: medium, 3: large
     difficulty: master                         # 0: normal, 1: expert, 2: master, 3: journey
     worldname: "large-master-world.wld"        # Name of the world
     maxplayers: 8                              # Max number of players
