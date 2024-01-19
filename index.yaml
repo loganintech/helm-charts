@@ -68,3 +68,18 @@ entries:
         - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.2/twitch-channel-points-miner-0.0.2.tgz
         - https://github.com/loganintech/helm-charts/releases/download/twitch-channel-points-miner-0.0.1/twitch-channel-points-miner-0.0.1.tgz
       version: 0.0.3
+  palworld:
+    - apiVersion: v1
+      appVersion: latest
+      created: "2024-01-19T03:00:53-07:00"
+      description:
+        Palworld for playing with your pals
+      digest: 6113d50c766fa1e9e0b065964f6715da8f23bca1647235ade9c47ca94a0e5dc7
+      icon: https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg
+      maintainers:
+        - email: logansaso@gmail.com
+          name: Logan Saso
+      name: palworld
+      urls:
+        - https://github.com/loganintech/helm-charts/releases/download/palworld-0.0.1/palworld-0.0.1.tgz
+      version: 0.0.1

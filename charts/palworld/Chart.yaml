@@ -1,0 +1,13 @@
+apiVersion: v1
+appVersion: "latest"
+description: palworld - Palworld Dedicated Server
+name: palworld
+version: 0.0.1
+icon: https://cdn.akamai.steamstatic.com/steam/apps/1623730/header.jpg
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.5.2
+maintainers:
+  - name: Logan Saso
+    email: logansaso@gmail.com
