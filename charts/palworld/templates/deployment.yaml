@@ -33,9 +33,41 @@ spec:
           tty: {{ .Values.palworld.tty }}
           stdin: {{ .Values.palworld.stdin }}
           env:
-            {{- if .Values.palworld.env }}
-            {{- toYaml .Values.palworld.env | nindent 12 }}
+            - name: SERVER_NAME
+              value: {{ .Values.palworld.config.serverName }}
+            - name: PORT
+              value: {{ .Values.palworld.config.port | quote }}
+            - name: COMMUNITY
+              value: {{ .Values.palworld.config.communityServer | quote }}
+            - name: PLAYERS
+              value: {{ .Values.palworld.config.maxPlayers | quote }}
+            - name: MULTITHREADING
+              value: {{ .Values.palworld.config.multiThreading | quote }}
+            - name: UPDATE_ON_BOOT
+              value: {{ .Values.palworld.config.updateOnBoot | quote }}
+            - name: RCON_ENABLED
+              value: {{ .Values.rcon.enabled | quote }}
+            - name: RCON_PORT
+              value: {{ .Values.rcon.port | quote }}
+            - name: PUID
+              value: {{ .Values.palworld.config.puid | quote }}
+            - name: PGID
+              value: {{ .Values.palworld.config.pgid | quote }}
+            {{- if .Values.palworld.config.adminPassword }}
+            - name: ADMIN_PASSWORD
+              value: {{ .Values.palworld.config.adminPassword | quote }}
             {{- end }}
+            {{- if .Values.palworld.config.serverPassword }}
+            - name: SERVER_PASSWORD
+              value: {{ .Values.palworld.config.serverPassword | quote }}
+            {{- end }}
+            {{- if .Values.palworld.config.publicPort }}
+            - name: PUBLIC_PORT
+              value: {{ .Values.palworld.config.publicPort | quote }}
+            {{- end }}
+{{/*            {{- if .Values.palworld.env }}*/}}
+{{/*            {{- toYaml .Values.palworld.env | nindent 12 }}*/}}
+{{/*            {{- end }}*/}}
           args:
             {{- if .Values.palworld.args }}
             {{- toYaml .Values.palworld.args | nindent 12 }}
@@ -43,11 +75,17 @@ spec:
             {{- end }}
           ports:
             - name: server
-              containerPort: 8211
+              containerPort: {{ .Values.palworld.config.port }}
               protocol: UDP
+            - name: rcon
+              containerPort: {{ .Values.rcon.port }}
+              protocol: TCP
+            - name: steamquery
+              containerPort: 27015 # Unfortunately, this cannot be changed
+              protocol: TCP
           volumeMounts:
           - name: game
-            mountPath: /game
+            mountPath: /palworld
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

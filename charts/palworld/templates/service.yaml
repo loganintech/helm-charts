@@ -22,6 +22,20 @@ spec:
       {{- if .Values.palworld.service.nodePort }}
       nodePort: {{ .Values.palworld.service.nodePort }}
       {{- end }}
+    - port: {{ .Values.rcon.port }}
+      targetPort: rcon
+      protocol: TCP
+      name: rcon
+      {{- if .Values.rcon.service.nodePort }}
+      nodePort: {{ .Values.rcon.service.nodePort }}
+      {{- end }}
+    - port: 27015 # Unfortunately this cannot be changed yet
+      targetPort: steamquery
+      protocol: UDP
+      name: steamquery
+      {{- if .Values.steamQuery.service.nodePort }}
+      nodePort: {{ .Values.steamQuery.service.nodePort }}
+      {{- end }}
   selector:
     app.kubernetes.io/name: {{ include "palworld.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

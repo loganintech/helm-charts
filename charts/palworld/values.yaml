@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: qmarchi/palworld
+  repository: thijsvanloef/palworld-server-docker
   tag: latest
   pullPolicy: Always
 
@@ -16,32 +16,45 @@ fullnameOverride: ""
 palworld:
   tty: true
   stdin: false
+
   service:
     type: NodePort
     port: 8211
     #nodePort:
     annotations: {}
-  args:
-  env:
-    - name: SKIPUPDATE
-      value: "FALSE"
-    - name: PGID
-      value: "1000"
-    - name: PUID
-      value: "1000"
-    - name: ROOTLESS
-      value: "TRUE"
-    - name: GAMEPORT
-      value: "8211"
-#    - STEAMUSER=anonymous
-#    - STEAMPASSWORD=
-#    - STEAM2FA=
-#    - GAMEPLAYERS=32
-#    - MULTITHREAD=TRUE
 
-podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  env:
+
+  config:
+    maxPlayers: 16
+    port: 8211 # Port the server should listen on
+    #publicPort: # Port exposed to the world. Uncomment to set manually
+    multiThreading: true
+    communityServer: false
+    serverName: "Palworld Server"
+    #adminPassword: ""
+    #serverPassword: ""
+    updateOnBoot: true # Must be true on firstrun
+    puid: 1000
+    pgid: 1000
+
+steamQuery:
+  # Set to true to open 27015. Port cannot be changed.
+  enabled: false
+  service:
+    type: NodePort
+    port: 27015
+    #nodePort:
+    annotations: { }
+
+rcon:
+  enabled: false
+  port: 25575
+  service:
+    type: NodePort
+    port: 25575
+    #nodePort:
+    annotations: { }
 
 resources: {}
 
@@ -54,6 +67,6 @@ affinity: {}
 persistence:
   game:
     enabled: true
-    mountPath: /game
+    mountPath: /palworld
     accessMode: ReadWriteOnce
     size: 10Gi

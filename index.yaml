@@ -81,5 +81,6 @@ entries:
           name: Logan Saso
       name: palworld
       urls:
+        - https://github.com/loganintech/helm-charts/releases/download/palworld-0.0.2/palworld-0.0.2.tgz
         - https://github.com/loganintech/helm-charts/releases/download/palworld-0.0.1/palworld-0.0.1.tgz
-      version: 0.0.1
+      version: 0.0.2
