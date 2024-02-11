@@ -84,3 +84,18 @@ entries:
         - https://github.com/loganintech/helm-charts/releases/download/palworld-0.0.2/palworld-0.0.2.tgz
         - https://github.com/loganintech/helm-charts/releases/download/palworld-0.0.1/palworld-0.0.1.tgz
       version: 0.0.2
+  enshrouded:
+    - apiVersion: v1
+      appVersion: latest
+      created: "2024-02-10T19:29:57.7633566-08:00"
+      description: Enshrouded - Enshrouded Dedicated Server
+      digest: 1f43838da35eec24389ced2e380fc62e563411d8a740d98c219752f308fa557f
+      icon: https://cdn.cloudflare.steamstatic.com/steam/apps/1203620/header.jpg
+      maintainers:
+      - email: logansaso@gmail.com
+        name: Logan Saso
+      name: enshrouded
+      urls:
+      - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.1/enshrouded-0.0.1.tgz
+      version: 0.0.1
+
