@@ -52,7 +52,7 @@ spec:
               protocol: UDP
           volumeMounts:
           - name: game
-            mountPath: /home/steam/enshrouded/savegame
+            mountPath: {{ .Values.persistence.game.mountPath }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:

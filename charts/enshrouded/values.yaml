@@ -14,8 +14,8 @@ nameOverride: ""
 fullnameOverride: ""
 
 podSecurityContext:
-  runAsUser: 1000
-  runAsGroup: 1000
+  runAsUser: 10000
+  runAsGroup: 10000
 
 enshrouded:
   tty: true
@@ -53,6 +53,6 @@ affinity: {}
 persistence:
   game:
     enabled: true
-    mountPath: /home/steam/enshrouded/savegame
+    mountPath: /home/steam/enshrouded
     accessMode: ReadWriteOnce
     size: 10Gi

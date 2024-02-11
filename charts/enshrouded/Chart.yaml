@@ -2,7 +2,7 @@ apiVersion: v1
 appVersion: "latest"
 description: Enshrouded - Enshrouded Dedicated Server
 name: enshrouded
-version: 0.0.2
+version: 0.0.3
 icon: https://cdn.cloudflare.steamstatic.com/steam/apps/1203620/header.jpg
 dependencies:
   - name: common

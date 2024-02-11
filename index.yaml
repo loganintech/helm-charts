@@ -96,7 +96,8 @@ entries:
         name: Logan Saso
       name: enshrouded
       urls:
+      - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.3/enshrouded-0.0.3.tgz
       - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.2/enshrouded-0.0.2.tgz
       - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.1/enshrouded-0.0.1.tgz
-      version: 0.0.2
+      version: 0.0.3
 
