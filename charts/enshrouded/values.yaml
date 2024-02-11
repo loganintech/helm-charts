@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: thijsvanloef/enshrouded-server-docker
+  repository: sknnr/enshrouded-dedicated-server
   tag: latest
   pullPolicy: Always
 
