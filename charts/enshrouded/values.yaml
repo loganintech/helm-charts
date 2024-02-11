@@ -1,0 +1,58 @@
+# Default values for enshrouded.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: thijsvanloef/enshrouded-server-docker
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+
+enshrouded:
+  tty: true
+  stdin: false
+
+  service:
+    type: NodePort
+    port: 15636
+    #nodePort:
+    annotations: {}
+  query:
+    type: NodePort
+    port: 15637
+    #nodePort:
+    annotations: {}
+
+  env:
+
+  config:
+    maxPlayers: 16
+    serverName: "Enshrouded Server"
+    serverPassword: "fakePass"
+    gamePort: 15636
+    queryPort: 15637
+
+
+resources: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+persistence:
+  game:
+    enabled: true
+    mountPath: /home/steam/enshrouded/savegame
+    accessMode: ReadWriteOnce
+    size: 10Gi
