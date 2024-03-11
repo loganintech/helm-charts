@@ -1,0 +1,27 @@
+{{- if .Values.rcon.external }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "factorio-server-charts.fullname" . }}-rcon
+  labels:
+    app: {{ template "factorio-server-charts.fullname" . }}
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+  annotations:
+  {{- range $key, $value := .Values.rcon.serviceAnnotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+spec:
+  type: {{ .Values.rcon.type }}
+  ports:
+    - name: rcon
+      port: {{ .Values.rcon.port }}
+      targetPort: 27015
+    {{- if eq .Values.rcon.type "NodePort" }}
+      nodePort: {{ .Values.rcon.port}}
+    {{- end }}
+      protocol: TCP
+  selector:
+    app: {{ template "factorio-server-charts.fullname" . }}
+{{- end }}

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "factorio-server-charts.fullname" . }}-serversettingsconfig
+  labels:
+    app: {{ template "factorio-server-charts.fullname" . }}
+    chart: {{ template "factorio-server-charts.fullname" . }}
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+data:
+  server-settings.json: |
+{{ toJson .Values.server_settings | indent 4 }}
+  map-gen-settings.json: |
+{{ toJson .Values.map_gen_settings | indent 4 }}
+  map-settings.json: |
+{{ toJson .Values.map_settings | indent 4 }}
+  server-adminlist.json: |
+{{ toJson .Values.admin_list | indent 4 }}
+  server-whitelist.json: |
+{{ toJson .Values.white_list | indent 4 }}
+  server-banlist.json: |
+{{ toJson .Values.ban_list | indent 4 }}

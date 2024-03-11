@@ -89,7 +89,6 @@ entries:
       appVersion: latest
       created: "2024-02-10T19:29:57.7633566-08:00"
       description: Enshrouded - Enshrouded Dedicated Server
-      digest: 1f43838da35eec24389ced2e380fc62e563411d8a740d98c219752f308fa557f
       icon: https://cdn.cloudflare.steamstatic.com/steam/apps/1203620/header.jpg
       maintainers:
       - email: logansaso@gmail.com
@@ -100,4 +99,16 @@ entries:
       - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.2/enshrouded-0.0.2.tgz
       - https://github.com/loganintech/helm-charts/releases/download/enshrouded-0.0.1/enshrouded-0.0.1.tgz
       version: 0.0.3
-
+  factorio:
+    - apiVersion: v2
+      appVersion: latest
+      created: "2024-03-10T19:29:57.7633566-08:00"
+      description: Factorio Dedicated Server
+      icon: https://cdn.akamai.steamstatic.com/steam/apps/427520/header.jpg
+      maintainers:
+        - email: logansaso@gmail.com
+          name: Logan Saso
+      name: factorio
+      urls:
+        - https://github.com/loganintech/helm-charts/releases/download/factorio-1.2.6/factorio-1.2.6.tgz
+      version: 1.2.6

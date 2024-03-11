@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "factorio-server-charts.fullname" . }}-test-connection"
+  labels:
+    {{- include "factorio-server-charts.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: rcon
+      image: outdead/rcon
+      command:
+        - /bin/sh
+        - -ec
+        - |
+          RCONPW="$(cat /rconpw/rconpw)"
+          ./rcon -a {{ include "factorio-server-charts.fullname" . }}-rcon:{{ .Values.rcon.port }} -p $RCONPW -t rcon -T 180s /s Test
+      volumeMounts:
+        - mountPath: /rconpw
+          name: rconpw
+  restartPolicy: Never
+  volumes:
+    - name: rconpw
+      secret:
+        {{- if .Values.rcon.passwordSecret }}
+        secretName: {{ .Values.rcon.passwordSecret }}
+        {{- else }}
+        secretName: {{ template "factorio-server-charts.fullname" . }}-rcon
+        {{- end }}

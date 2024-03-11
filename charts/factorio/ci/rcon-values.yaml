@@ -1,0 +1,12 @@
+rcon:
+  type: ClusterIP
+  password: CHANGEMECHANGEME
+
+service:
+  type: ClusterIP
+
+server_settings:
+  name: "ClusterIP Test"
+
+serverPassword:
+  game_password: 'CHANGEME'
