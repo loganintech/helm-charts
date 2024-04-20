@@ -106,32 +106,38 @@ serverPassword:
   # Existing Secret containing a `game_password` data entry
   passwordSecret: ''
 ```
+
 ## Importing a save file
 
-> :warning: Importing a save file will **OVERWRITE THE SERVER SAVEFILE** with the name specified in `factorioServer.save_name`. Import with caution!
+> :warning: Importing a save file will **OVERWRITE THE SERVER SAVEFILE** with the name specified
+> in `factorioServer.save_name`. Import with caution!
 
 ### Importing by URL
 
-To import your save file from a URL, set `import_save.source_url` to a direct-download link for your savegame. By default, the file will be downloaded and imported only once.
+To import your save file from a URL, set `import_save.source_url` to a direct-download link for your savegame. By
+default, the file will be downloaded and imported only once.
 
-If, on pod intialization, you wish to re-import the file every time the contents of the savegame change, set `import_save.reimport_on_change` to `true`. 
-:warning: If the savegame at the source url changes, this will overwrite the server save with that file. Use with caution!
+If, on pod intialization, you wish to re-import the file every time the contents of the savegame change,
+set `import_save.reimport_on_change` to `true`.
+:warning: If the savegame at the source url changes, this will overwrite the server save with that file. Use with
+caution!
 
-If you wish to reimport the save file every time the pod reinitializes, regardless of changes, set `import_save.reimport_every_time` to `true`. This could be useful for demos or testing.
+If you wish to reimport the save file every time the pod reinitializes, regardless of changes,
+set `import_save.reimport_every_time` to `true`. This could be useful for demos or testing.
 :warning: This will overwrite the server savegame **every time the pod reinitializes**. Use with caution!
 
 ### Manual Import
 
 To import an existing save file, start/restart the pod at least once. This will create the import folder structure.
 
-Now, copy the savegame you wish to import to the `/factorio/save-importer/import/<existing_savegame_name>.zip` on the running pod using whatever mechanism you prefer. To do this with kubectl:
+Now, copy the savegame you wish to import to the `/factorio/save-importer/import/<existing_savegame_name>.zip` on the
+running pod using whatever mechanism you prefer. To do this with kubectl:
 
 ```bash
 kubectl cp ./my_existing_savegame.zip <namespace>/<pod_name>:/factorio/save-importer/import
 ```
 
 Restart the pod again to import your save file.
-
 
 ## Installing mods
 
@@ -156,18 +162,31 @@ mods:
     - url: "https://github.com/Suprcheese/Squeak-Through/archive/refs/tags/1.8.2.zip"
       name: "Squeak Through_1.8.2.zip"
 ```
+
 If the Factorio server doesn't start, check that the logs don't have an error with the mods. They are pretty verbose.
 
 ### Space Exploration and other overhaul mods
-It is possible that your mod may extend the default settings. As a result, your server might not start properly and instead throw an error.
 
-While we expose all the default settings, we would not be able to determine what is needed if it is absent. To add new settings you would need to convert the desired json file into a yaml struct as we are mounting all configurations as a config map into the container.
+It is possible that your mod may extend the default settings. As a result, your server might not start properly and
+instead throw an error.
 
-the issue with Space Exploration, as an example, was that the `autoplace_controls` by default is an empty array, and thus we were not able to start the instance as there were no settings for them to evaluate. Additionally, they are also modifying some of the other settings. These changes implement the default recommended settings, available in the UI and were stored in a file at `...Factorio\mods\space-exploration\shared.lua`. In the lua file, it has 2 sections, basic_settings and advanced_settings which correspond to settings in `map-gen-settings.json` and `map-settings.json` respecively.
+While we expose all the default settings, we would not be able to determine what is needed if it is absent. To add new
+settings you would need to convert the desired json file into a yaml struct as we are mounting all configurations as a
+config map into the container.
 
-At the time of writing, to make these changes you would need to add this to your values.yaml file to override their default values in the chart. 
+the issue with Space Exploration, as an example, was that the `autoplace_controls` by default is an empty array, and
+thus we were not able to start the instance as there were no settings for them to evaluate. Additionally, they are also
+modifying some of the other settings. These changes implement the default recommended settings, available in the UI and
+were stored in a file at `...Factorio\mods\space-exploration\shared.lua`. In the lua file, it has 2 sections,
+basic_settings and advanced_settings which correspond to settings in `map-gen-settings.json` and `map-settings.json`
+respecively.
 
-> **_NOTE:_**  These settings may change and it is important to check with the mod maintainer/community to check the recommended settings.
+At the time of writing, to make these changes you would need to add this to your values.yaml file to override their
+default values in the chart.
+
+> **_NOTE:_**  These settings may change and it is important to check with the mod maintainer/community to check the
+> recommended settings.
+
 ```
 map_settings:
   pollution:
@@ -189,9 +208,12 @@ map_gen_settings:
     control-setting:moisture:bias: '0.05'
     control-setting:aux:bias: '-0.35'
 ```
-More information about the debugging process for the space exploration mod can be read on [Issue 24](https://github.com/SQLJames/factorio-server-charts/issues/24).
 
-If you do run into any issues with mods, I will try to work with you on finding the right settings and document them as well.
+More information about the debugging process for the space exploration mod can be read
+on [Issue 24](https://github.com/SQLJames/factorio-server-charts/issues/24).
+
+If you do run into any issues with mods, I will try to work with you on finding the right settings and document them as
+well.
 
 ## Parameters
 
@@ -226,6 +248,13 @@ If you do run into any issues with mods, I will try to work with you on finding 
 | `service.nodePort`              | If you use "type: NodePort" set the port to a value you like in the range of 30000-32767. Leave it blank for a random port |            |
 | `service.annotations`           | Additional custom annotations for Factorio service                                                                         | `{}`       |
 | `service.externalTrafficPolicy` | Traffic policy, "Cluster" or "Local", used for the service                                                                 | `Cluster`  |
+
+### Deployment Parameters
+
+| Name                   | Description | Value   |
+|------------------------|-------------|---------|
+| deployment.hostNetwork | bool        | `false` |
+| deployment.hostPort    | int         | `31479` |
 
 ### Persistence Configuration
 
@@ -283,7 +312,7 @@ If you do run into any issues with mods, I will try to work with you on finding 
 | `server_settings.maximum_segment_size_peer_count`              | Minimum network messages segment count                                                                                                   | `10`                             |
 | `rcon.external`                                                | Enable RCON external access (deploy RCON service)                                                                                        | `true`                           |
 | `rcon.type`                                                    | RCON service type                                                                                                                        | `LoadBalancer`                   |
-| `rcon.serviceAnnotations`                                      | RCON service annotations                                                                                                                        | `{}`                   |
+| `rcon.serviceAnnotations`                                      | RCON service annotations                                                                                                                 | `{}`                             |
 | `rcon.passwordSecret`                                          | Existing secret containing a `password` data field                                                                                       | `""`                             |
 | `rcon.password`                                                | Password for RCON, ignored if `rcon.passwordSecret` is set                                                                               | `CHANGEMECHANGEME`               |
 | `rcon.port`                                                    | RCON service external port                                                                                                               | `30100`                          |

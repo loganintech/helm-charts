@@ -68,6 +68,13 @@ service:
   # externalTrafficPolicy: Cluster
   annotations: {}
 
+#### Deployment Configuration ####
+## @section Deployment Parameters
+## @param deployment.hostNetwork Enable hostNetwork for the deployment in order to use hostPort
+## @param deployment.hostPort Specify the hostPort you want to use for the game (default port 34179 is recommended)
+deployment:
+  hostNetwork: false
+  hostPort: 31479
 
 ## Compute Resources required by the operator container
 resources:
