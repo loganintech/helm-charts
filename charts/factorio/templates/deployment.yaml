@@ -23,7 +23,6 @@ spec:
         options:
           - name: ndots
             value: '1'
-      hostNetwork: {{ .Values.deployment.hostNetwork }}
       initContainers:
         - name: volume-permissions-serversettingsconfig
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -139,7 +138,7 @@ spec:
         - name: factorio
           containerPort: 34197
           protocol: UDP
-          {{- if .Values.deployment.hostNetwork }}
+          {{- if .Values.deployment.hostPort }}
           hostPort: {{ .Values.deployment.hostPort }}
           {{- end }}
         - containerPort: 27015

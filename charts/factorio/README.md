@@ -253,8 +253,7 @@ well.
 
 | Name                   | Description | Value   |
 |------------------------|-------------|---------|
-| deployment.hostNetwork | bool        | `false` |
-| deployment.hostPort    | int         | `31479` |
+| deployment.hostPort    | int         | `34179` |
 
 ### Persistence Configuration
 
