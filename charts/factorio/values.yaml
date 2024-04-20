@@ -70,9 +70,9 @@ service:
 
 #### Deployment Configuration ####
 ## @section Deployment Parameters
-## @param deployment.hostPort Specify the hostPort you want to use for the game (default port 34179 is recommended)
-# deployment:
-#   hostPort: 34179
+## @param deployment.hostNetwork Enable hostNetwork for the deployment
+deployment:
+  hostNetwork: false
 
 ## Compute Resources required by the operator container
 resources:
