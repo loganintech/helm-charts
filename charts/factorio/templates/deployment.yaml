@@ -151,6 +151,8 @@ spec:
           - name: datadir
             mountPath: /factorio
         env:
+        - name: DLC_SPACE_AGE
+          value: {{ .Values.factorioServer.enable_dlc_space_age | quote }}
         - name: UPDATE_MODS_ON_START
           value: {{ .Values.factorioServer.update_mods_on_start | quote }}
         - name: INSTANCE_NAME
